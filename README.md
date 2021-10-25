@@ -1,4 +1,4 @@
-# 实现前端高质量邮件信 ✉
+# 前端高质量邮件信开发实现 📧
 
 ![banner](./images/banner.png)
 
@@ -14,7 +14,7 @@
 
 ## 低质量邮件信 `👎`
 
-* `博客园` 评论通知：虽然简明扼要，但是作为官网发出的邮件，样式缺少权威性，很容易被忽略。
+* `博客园` 评论通知：邮件内容虽然简明扼要，但是作为官网发出的邮件，样式缺少权威性，很容易被忽略。
 * 某广告邮件：样式排版布局杂乱，一眼就能识别出是垃圾邮件 `🗑`，完全没有仔细阅读的欲望。
 
 ![low](./images/low.png)
@@ -28,15 +28,17 @@
 
 ## 实现高质量邮件信
 
-### 效果
+### 实现效果
 
-> `🔗` 在线预览：https://dragonir.github.io/start-html-email/
+首先展示本文内容实现的邮件信示例模版实现效果，邮件信由页面顶部和页脚的提示以及主体内容组成。主体内容中，有些元素只有 `一列` 内容、有些元素有 `左右两列`、有些元素有 `左中右三列`，基本满足实际开发需求，大家可以参照实现。
 
 ![example](./images/example.png)
 
-### 代码
+> `🔗` 在线预览：https://dragonir.github.io/start-html-email
 
-在 `<style>` 标签中可以添加全局样式代码，大部分邮箱都支持在header标签中添加样式，不过也有可能少数古早的邮件客户端会将这部分样式过滤掉，在这种邮箱客户端中只能通过 `行内样式` 来解决。
+### 代码实现
+
+在 `<style>` 标签中可以添加全局样式代码，大部分邮箱都支持在 `header` 标签中添加样式，不过也有可能少数古早的邮件客户端会将这部分样式过滤掉，在这种邮箱客户端中只能通过 `行内样式` 来解决。
 
 ```html
 <style type="text/css">
@@ -55,6 +57,8 @@
  p {font-size: 12px; color: #444444 !important; font-family: "Lucida Grande", "Lucida Sans", "Lucida Sans Unicode", sans-serif; line-height: 1.5; }
 </style>
 ```
+
+如下面示例代码所示，`html` 使用 `table` 布局，以便于尽可能兼容所有邮件客户端。页面父级容器是一个 `table` 元素，它 `3` 个子元素也是 `table` 元素，第一个 `id="top-message"` 和第三个用于在页面顶部和页脚显示提示信息、第二个 `table` `id="main"` 是邮件信的主体部分，它里面的每个子元素模块也是 `table` 元素，而页面的内容主要填充在 `tr` 与 `td` 元素中。
 
 ```html
 <body>
@@ -106,7 +110,7 @@
         <td>
           <table id="content-2" cellpadding="0" cellspacing="0" align="center">
             <tr>
-              <td width="570"><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p></td>
+              <td width="570"><p>Lorem ipsum dolor sit amet, consectetur adipisicing ...</p></td>
             </tr>
           </table><!-- content-2 -->
         </td>
@@ -114,13 +118,11 @@
       <tr>
         <td height="30"><img src="https://tricell.fun/email/images/example/blank.png" /></td>
       </tr>
-
-      <!-- ... -->
-
+      <!-- 省略中间类似模块 -->
       <tr>
         <td>
           <table id="content-6" cellpadding="0" cellspacing="0" align="center">
-            <p align="center">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+            <p align="center">Lorem ipsum dolor sit amet, consectetur adipisicing ...</p>
             <p align="center"><a href="#">CALL TO ACTION</a></p>
           </table>
         </td>
@@ -142,11 +144,13 @@
 
 ## 测试高质量邮件信
 
-网易邮箱、QQ邮箱（有功能，但我上传时接口会报错）、189邮箱（已去除该功能）
+完成邮件信页面开发后，就需要在不同邮箱中进行测试，以便于发现在不同邮件客户端中的样式的错乱问题。`网易邮箱` 有添加代码功能，我们可以直接将开发好的邮件信代码贴进邮件里，然后发送给其他邮箱进行测试。`QQ邮箱` 也有直接上传 `html` 文档的功能。（我去年2020年测试的时候是可以用的，今天我上传时接口会报错 `😓`）`189邮箱` 以前也有添加代码的功能，今天我去测试的时候发现已经下线了该功能，可能是出于安全性的考虑 `😓`。
 
 ![mail](./images/mail.png)
 
 ## 高质量邮件信代码编写原则
+
+这部分内容总结了上述邮件信开发过程中需要注意的问题，提前了解这些规则可以提高开发效率，少走一些弯路 `😊`。
 
 1. **页面宽度**：推荐 `600px` - `800px`，最大不要超过 `800px`。
 
@@ -158,9 +162,10 @@
 <td style=”font-family:Arial; font-size:12px; color:#000000;” >text</td>
 <font style=”font-family:Arial; font-size:12px; color:#000000;” >text</font> <!-- 已废弃 -->
 ```
+
 > `💡` 外链的 `css` 样式在邮件里将不能被读取，发送出去的邮件会失去样式。
 
-4. **动态内容**：不使用 `Flash`、`Java`、`Javascript`、`frames`、`i-frames`、`ActiveX` 以及 `DHTML`，如果页面中的图片一定要是动态的，请使用 `GIF` 动图。
+4. **动态内容**：不使用 `Flash`、`Java`、`Javascript`、`frames`、`i-frames`、`ActiveX` 以及 `DHTML`，如果页面中的图片一定要是动态的，可以使用 `gif` 动图。
 
 5. **标签**：`<table>` 以外的 `body`、`meta` 和 `html` 之类的标签是可以无视的，邮箱系统里会把这些过滤掉。
 
@@ -214,7 +219,7 @@
 
 ## 附录
 
-下面内容罗列了一些国外邮箱客户端对 `html` 标签和 `css` 属性的支持度。根据开发经验，一般兼容 `outlook` 邮箱的邮件信，必定是兼容国内邮箱的。
+下面内容罗列了一些国外邮箱客户端对 `html` 标签和 `css` 属性的支持度。对于国内常用邮箱客户端，根据开发经验，一般兼容 `Outlook` 邮箱的邮件信，大多是是兼容国内邮箱的。
 
 ![logo](./images/logo.png)
 
@@ -249,7 +254,7 @@
 | `<head>`中的`<link>`标签 | ❌   | ❌      | ❌    | ❌        | ✔        | ✔ | ✔         | ✔         | ✔       | ✔       | ❌     |
 | `<body>`中的`<link>`标签 | ❌    | ❌      | ❌    | ❌        | ✔        | ✔ | ✔         | ✔         | ✔       | ✔       | ❌     |
 
-#### CSS 选择器
+#### `CSS` 选择器
 
 |                  | gmail | Hotmail | Yahoo | Live Mail | Outlook/OE | AOL | Lotus Notes | Thunderbird | Mac Email | Entourage | Eudora |
 | ---------------- | ----- | ------- | ----- | --------- | ---------- | --- | ----------- | ----------- | --------- | --------- | ------ |
@@ -266,7 +271,7 @@
 | `e:first-line`     | ❌    | ✔     | ✔   | ✔       | ✔        | ✔ | ❌          | ✔         | ✔       | ✔       | ❌     |
 | `e:first-letter`   | ❌    | ✔     | ✔   | ✔       | ✔        | ✔ | ❌          | ✔         | ✔       | ✔       | ❌     |
 
-#### CSS 属性
+#### `CSS` 属性
 
 |                     | gmail | Hotmail  | Yahoo | Live Mail | Outlook/OE | AOL | Lotus Notes | Thunderbird | Mac Email | Entourage | Eudora |
 | ------------------- | ----- | -------- | ----- | --------- | ---------- | --- | ----------- | ----------- | --------- | --------- | ------ |
@@ -318,15 +323,16 @@
 | `word-spacing`        | ✔   | ✔      | ✔   | ✔       | ✔        | ✔ | ❌          | ✔         | ✔       | ✔       | ❌     |
 | `z-index`             | ❌    | ✔      | ✔   | ❌        | ✔        | ✔ | ❌          | ✔         | ✔       | ✔       | ❌     |
 
-**`💡`符号说明**
+**`💡`符号说明**：
 
 * `✔`：支持。
 * `❌`：不支持。
-* `*`：不被Microsoft Outlook 2007支持。
+* `◯`: 未知。
+* `*`：不被 `Microsoft Outlook 2007` 支持。
 
 ## 更多高质量邮件信
 
-添加gif动画及设计元素切图，让邮件信看起来更高质量 `🌟`。
+使用高颜值的设计稿，添加gif动画等设计元素，可以开发出更加高质量的邮件信。下面几个邮件信设计是我在逛 dribbble 时觉得好看的。在项目没有设计师的情况下，我们也可以多逛逛设计网站找找开发灵感，做到真正的 `全链路全栈` 开发 `🌟`。
 
 ![more_0](./images/more_0.gif)
 ![more_1](./images/more_1.png)
